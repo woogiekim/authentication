@@ -1,4 +1,4 @@
-package org.auth
+package org.auth.totp
 
 import java.security.SecureRandom
 

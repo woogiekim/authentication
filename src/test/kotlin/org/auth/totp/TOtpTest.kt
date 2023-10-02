@@ -1,20 +1,18 @@
-package org.auth.google
+package org.auth.totp
 
 import org.assertj.core.api.Assertions.assertThat
-import org.auth.DefaultSecretKeyGenerator
-import org.auth.SecretKeyGenerator
 import org.auth.extension.encode
 import org.junit.jupiter.api.Test
 
-class GoogleOtpTest {
+class TOtpTest {
 
     @Test
     fun `구글 OTP 생성`() {
-        val googleOtp = GoogleOtp("issuer", "account")
+        val tOtp = TOtp("issuer", "account")
 
-        assertThat(googleOtp.issuer).isEqualTo("issuer")
-        assertThat(googleOtp.account).isEqualTo("account")
-        assertThat(googleOtp.secretKey).isNotBlank
+        assertThat(tOtp.issuer).isEqualTo("issuer")
+        assertThat(tOtp.account).isEqualTo("account")
+        assertThat(tOtp.secretKey).isNotBlank
     }
 
     @Test
@@ -25,7 +23,7 @@ class GoogleOtpTest {
         val account = googleOtp.account
         val secretKey = googleOtp.secretKey
 
-        assertThat(googleOtp.otpUrl).isEqualTo(
+        assertThat(googleOtp.generateUrl()).isEqualTo(
             "otpauth://totp/${"$issuer:$account".encode()}?secret=${secretKey.encode()}&issuer=${issuer.encode()}"
         )
     }
@@ -35,6 +33,6 @@ fun createGoogleOtp(
     issuer: String = "issuer",
     account: String = "account",
     secretKeyGenerator: SecretKeyGenerator = DefaultSecretKeyGenerator()
-): GoogleOtp {
-    return GoogleOtp(issuer, account, secretKeyGenerator)
+): TOtp {
+    return TOtp(issuer, account, secretKeyGenerator)
 }
