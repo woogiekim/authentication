@@ -10,6 +10,7 @@ import org.auth.DefaultSecretKeyGenerator
 import org.auth.SecretKeyGenerator
 import org.auth.extension.encode
 import java.awt.image.BufferedImage
+import java.nio.charset.StandardCharsets.UTF_8
 
 class GoogleOtp(
     val issuer: String,
@@ -17,7 +18,9 @@ class GoogleOtp(
     secretKeyGenerator: SecretKeyGenerator = DefaultSecretKeyGenerator()
 ) {
 
-    val secretKey = secretKeyGenerator.generate()
+    val secretKey: String = secretKeyGenerator.generate().apply {
+        Base32().encodeToString(this.toByteArray(UTF_8))
+    }
 
     val otpUrl: String
         get() {

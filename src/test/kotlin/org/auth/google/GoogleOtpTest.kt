@@ -5,8 +5,6 @@ import org.auth.DefaultSecretKeyGenerator
 import org.auth.SecretKeyGenerator
 import org.auth.extension.encode
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
-import java.util.*
 
 class GoogleOtpTest {
 
@@ -16,7 +14,7 @@ class GoogleOtpTest {
 
         assertThat(googleOtp.issuer).isEqualTo("issuer")
         assertThat(googleOtp.account).isEqualTo("account")
-        assertDoesNotThrow { UUID.fromString(googleOtp.secretKey) }
+        assertThat(googleOtp.secretKey).isNotBlank
     }
 
     @Test
