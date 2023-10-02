@@ -3,7 +3,9 @@ package org.auth.totp
 import de.taimos.totp.TOTP
 import org.apache.commons.codec.binary.Base32
 import org.apache.commons.codec.binary.Hex
+import org.auth.DefaultSecretKeyGenerator
 import org.auth.Otp
+import org.auth.SecretKeyGenerator
 import org.auth.extension.encode
 
 class TOtp(

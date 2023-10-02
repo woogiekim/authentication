@@ -1,6 +1,8 @@
 package org.auth.totp
 
 import org.assertj.core.api.Assertions.assertThat
+import org.auth.DefaultSecretKeyGenerator
+import org.auth.SecretKeyGenerator
 import org.auth.extension.encode
 import org.junit.jupiter.api.Test
 
