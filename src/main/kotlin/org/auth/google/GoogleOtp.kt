@@ -18,8 +18,8 @@ class GoogleOtp(
     secretKeyGenerator: SecretKeyGenerator = DefaultSecretKeyGenerator()
 ) {
 
-    val secretKey: String = secretKeyGenerator.generate().apply {
-        Base32().encodeToString(this.toByteArray(UTF_8))
+    val secretKey: String = secretKeyGenerator.generate().run {
+        Base32().encodeToString(this.replace("-", "").toByteArray(UTF_8))
     }
 
     val otpUrl: String
