@@ -7,25 +7,36 @@ import org.junit.jupiter.api.Test
 class TOtpTest {
 
     @Test
-    fun `구글 OTP 생성`() {
-        val tOtp = TOtp("issuer", "account")
+    fun `TOTP 생성`() {
+        val totp = TOtp("issuer", "account")
 
-        assertThat(tOtp.issuer).isEqualTo("issuer")
-        assertThat(tOtp.account).isEqualTo("account")
-        assertThat(tOtp.secretKey).isNotBlank
+        assertThat(totp.issuer).isEqualTo("issuer")
+        assertThat(totp.account).isEqualTo("account")
+        assertThat(totp.secretKey).isNotBlank
     }
 
     @Test
-    fun `OTP URL 생성`() {
-        val googleOtp = createGoogleOtp()
+    fun `TOTP URL 생성`() {
+        val totp = createGoogleOtp()
 
-        val issuer = googleOtp.issuer
-        val account = googleOtp.account
-        val secretKey = googleOtp.secretKey
+        val issuer = totp.issuer
+        val account = totp.account
+        val secretKey = totp.secretKey
 
-        assertThat(googleOtp.generateUrl()).isEqualTo(
+        assertThat(totp.generateUrl()).isEqualTo(
             "otpauth://totp/${"$issuer:$account".encode()}?secret=${secretKey.encode()}&issuer=${issuer.encode()}"
         )
+    }
+
+    @Test
+    fun `TOTP 숫자 생성`() {
+        val totp = createGoogleOtp()
+
+        val generatedOtp = totp.generateOtp()
+
+        assertThat(generatedOtp)
+            .hasSize(6)
+            .containsPattern("\\d")
     }
 }
 
