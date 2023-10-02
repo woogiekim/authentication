@@ -1,15 +1,20 @@
 package org.auth
 
-import java.util.*
+import java.security.SecureRandom
 
 interface SecretKeyGenerator {
 
-    fun generate(): String
+    fun generate(): ByteArray
 }
 
 class DefaultSecretKeyGenerator : SecretKeyGenerator {
 
-    override fun generate(): String {
-        return UUID.randomUUID().toString()
+    override fun generate(): ByteArray {
+        val random = SecureRandom()
+        val bytes = ByteArray(20)
+
+        random.nextBytes(bytes)
+
+        return bytes
     }
 }
