@@ -3,7 +3,7 @@ package org.auth
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.common.BitMatrix
 
-interface BarcodeGenerator {
+interface OtpBarcodeGenerator {
 
     fun generate(
         format: BarcodeFormat = BarcodeFormat.QR_CODE,
